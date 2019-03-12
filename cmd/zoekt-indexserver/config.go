@@ -41,6 +41,7 @@ type ConfigEntry struct {
 	Name                   string
 	Exclude                string
 	GitLabURL              string
+	GitLabPublic           bool
 }
 
 func randomize(entries []ConfigEntry) []ConfigEntry {
@@ -208,6 +209,9 @@ func executeMirror(cfg []ConfigEntry, repoDir string, pendingRepos chan<- string
 			}
 			if c.Exclude != "" {
 				cmd.Args = append(cmd.Args, "-exclude", c.Exclude)
+			}
+			if c.GitLabPublic {
+				cmd.Args = append(cmd.Args, "-public")
 			}
 		}
 
